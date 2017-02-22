@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nathan brooks
- * Date: 11/30/2016
- */
-error_reporting(0);
+//error_reporting(0);
 
 use CS4450\Http;
 use CS4450\Controllers;
@@ -18,7 +13,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 		// this is an example of how to get data after a ?
 		// this was stolen from another student, he only allowed a single attribute after the ?
 		// we will need to make it a little more advanced if we need more data attributes
-		
+
 		$uri = $_SERVER['REQUEST_URI'];
         $pos = strpos($uri, '?');
         if ($pos !== false) {
@@ -27,64 +22,100 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
         }
         return (new Eportfolio\Controllers\ClassController)->getClass($args);
 	*/
-	
+
 	/*
 	// we built this as a test of the database
 	// it gets all of Brad Peterson's roles
-	
-		SELECT * 
+
+		SELECT *
 		FROM Users u
 		JOIN UserRoles ur
 		ON u.Id = ur.userID
 		join Roles r
 		ON ur.roleID = r.id
 		WHERE u.ID = 887969243;
-	
+
 	*/
-	
-	
-	
+
+
+
 	$handleGetAllColleges = function(){
         return (new CS4450\Controllers\CollegesController)->getAllColleges();
     };
-	
+
 	$handleGetCollegeByCode = function($args){
 		return (new CS4450\Controllers\CollegesController)->getCollegeByCode($args);
 	};
-	
+
 	//*********************************************************************************
-	
+
 	$handleGetAllRoles = function(){
 		return (new CS4450\Controllers\RolesController)->getAllRoles();
 	};
-	
+
 	$handleGetRoleByID = function($args){
 		return (new CS4450\Controllers\RolesController)->getRoleByID($args);
 	};
-	
+
 	//*********************************************************************************
-	
+
 	$handleGetAllCategories = function(){
 		return (new CS4450\Controllers\CategoriesController)->getAllCategories();
 	};
-	
+
 	$handleGetCategoryByID = function($args){
 		return (new CS4450\Controllers\CategoriesController)->getCategoryByID($args);
+	};
+
+	//*********************************************************************************
+	$handleGetUserRoles = function(){
+		return (new CS4450\Controllers\UserRolesController)->getUserRoles();
+	};
+	//*********************************************************************************
+	
+	$handleGetAllInstructorDepartments = function(){
+		return (new CS4450\Controllers\InstructorDepartmentsController)->getAllInstructorDepartments();
+	};
+	
+	$handleGetInstructorDepartmentsByInstructorID = function($args){
+		return (new CS4450\Controllers\InstructorDepartmentsController)->getInstructorDepartmentsByInstructorID($args);
+	};
+	
+	$handleGetInstructorDepartmentsByIDepartmentCode = function($args){
+		return (new CS4450\Controllers\InstructorDepartmentsController)->getInstructorDepartmentsByDepartmentCode($args);
 	};
 	
 	//*********************************************************************************
 	
-	$r->addRoute('GET',     $baseURI . '/colleges/',           	$handleGetAllColleges);
-    $r->addRoute('GET',     $baseURI . '/colleges',            	$handleGetAllColleges);
-	$r->addRoute('GET',     $baseURI . '/colleges/{code:\d+}',   $handleGetCollegeByCode);
 	
+	$handlePostEvals_UserDepartmentRoles = function(){
+        return (new CS4450\Controllers\Evals_UserDepartmentRolesController)->insertIntoEvals_UserDepartmentRoles();
+    };
+	//*********************************************************************************
+
+
+	$r->addRoute('GET',     $baseURI . '/colleges/',           	$handleGetAllColleges);
+	$r->addRoute('GET',     $baseURI . '/colleges',            	$handleGetAllColleges);
+	$r->addRoute('GET',     $baseURI . '/colleges/{code:\d+}',   $handleGetCollegeByCode);
+
 	$r->addRoute('GET',     $baseURI . '/roles/{id:\d+}',   $handleGetRoleByID);
 	$r->addRoute('GET',     $baseURI . '/roles/',   $handleGetAllRoles);
 	$r->addRoute('GET',     $baseURI . '/roles',   $handleGetAllRoles);
-	
+
 	$r->addRoute('GET',     $baseURI . '/categories',   $handleGetAllCategories);
 	$r->addRoute('GET',     $baseURI . '/categories/',   $handleGetAllCategories);
 	$r->addRoute('GET',     $baseURI . '/categories/{id:\d+}',   $handleGetCategoryByID);
+
+	$r->addRoute('GET',     $baseURI . '/userroles',   $handleGetUserRoles);
+	$r->addRoute('GET',     $baseURI . '/userroles/',   $handleGetUserRoles);
+	
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments',   $handleGetAllInstructorDepartments);
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments/',   $handleGetAllInstructorDepartments);
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments/instructor/{instructorID:\d+}',   $handleGetInstructorDepartmentsByInstructorID);
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments/department/{departmentCode:\d+}',   $handleGetInstructorDepartmentsByIDepartmentCode);
+	
+	$r->addRoute('POST',    $baseURI . '/Evals_UserDepartmentRoles/',           $handlePostEvals_UserDepartmentRoles);
+	
 });
 
 $method = $_SERVER['REQUEST_METHOD'];

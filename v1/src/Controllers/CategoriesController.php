@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: theds
- * Date: 12/6/2016
- * Time: 10:32 AM
- */
-
 namespace CS4450\Controllers;
 
 use PDO;
