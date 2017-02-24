@@ -18,13 +18,7 @@ class Evals_UserDepartmentRolesController
 		var_dump($_POST);
 		die();
 
-
 		return 1;
-		
-		
-		
-		
-		
 		
         if(empty($composer) || !ctype_alpha(str_replace(' ', '', $composer))){
             http_response_code(StatusCodes::BAD_REQUEST);

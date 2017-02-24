@@ -20,8 +20,20 @@ class InstructorDepartmentsController
 		
 		
 		$queryGetAllInstructorDepartments = '
-			SELECT * 
-			FROM InstructorDepartments;
+			SELECT 
+				id.DepartmentCode as DepartmentCode, 
+				id.id             as InstructorDepartmentsID, 
+				id.instructorID   as InstructorID, 
+				d.code            as DepartmentCode, 
+				d.collegeCode     as CollegeCode, 
+				d.name            as DepartmentName,
+				u.FirstName       as InstructorFirstName,
+				u.LastName        as InstructorLastName
+			FROM InstructorDepartments id
+			JOIN Departments d
+			ON id.departmentCode = d.code
+			JOIN Users u
+			ON u.Id = id.InstructorID;
 
 		';
 		

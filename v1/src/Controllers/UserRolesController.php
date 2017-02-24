@@ -16,12 +16,24 @@ class UserRolesController
  * SELECT FirstName, LastName, Role
  */
 		$queryGetAllUserRoles = '
-      SELECT u.Id, u.LastName, u.FirstName, r.name
-      FROM Users u
-      JOIN UserRoles ur
-      ON u.Id = ur.userID
-      JOIN Roles r
-      ON ur.roleID = r.id;
+			SELECT 
+				id.id             as InstructorDepartmentsID,
+				id.instructorID   as InstructorID,
+				d.code            as DepartmentCode,
+				d.collegeCode     as CollegeCode,
+				d.name            as DepartmentName,
+				u.FirstName       as InstructorFirstName,
+				u.LastName        as InstructorLastName,
+				r.name            as RoleName
+			FROM Users u
+			JOIN UserRoles ur
+			ON u.Id = ur.userID
+			JOIN Roles r
+			ON ur.roleID = r.id
+			JOIN InstructorDepartments id
+			ON u.Id = id.InstructorID
+			JOIN Departments d
+			ON id.departmentCode = d.code;
 		';
 
 		$stmtGetAllUserRoles = $db->prepare($queryGetAllUserRoles);
