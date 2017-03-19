@@ -72,28 +72,46 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 		return (new CS4450\Controllers\UserRolesController)->getUserRoles();
 	};
 	//*********************************************************************************
-	
+
 	$handleGetAllInstructorDepartments = function(){
 		return (new CS4450\Controllers\InstructorDepartmentsController)->getAllInstructorDepartments();
 	};
-	
+
 	$handleGetInstructorDepartmentsByInstructorID = function($args){
 		return (new CS4450\Controllers\InstructorDepartmentsController)->getInstructorDepartmentsByInstructorID($args);
 	};
-	
+
 	$handleGetInstructorDepartmentsByIDepartmentCode = function($args){
 		return (new CS4450\Controllers\InstructorDepartmentsController)->getInstructorDepartmentsByDepartmentCode($args);
 	};
-	
+
 	//*********************************************************************************
-	
-	
+
 	$handlePostEvals_UserDepartmentRoles = function(){
         return (new CS4450\Controllers\Evals_UserDepartmentRolesController)->insertIntoEvals_UserDepartmentRoles();
     };
 	//*********************************************************************************
+	$handleGetAllDepartments = function($args){
+		return (new CS4450\Controllers\DeptController)->getAllDepts($args);
+	};
+	//*********************************************************************************
+	$handleGetAllSemesters = function($args){
+		return (new CS4450\Controllers\SemesterController)->getAllDepts($args);
+	};
+	//*********************************************************************************
 
-
+	$handleGetPingraphData = function(){
+		return (new CS4450\Controllers\OldAPIController)->getPingraphData();
+	};
+	
+	$handleGetSemesters = function(){
+		return (new CS4450\Controllers\OldAPIController)->getSemesters();
+	};
+	
+	$handleGetDepartments = function(){
+		return (new CS4450\Controllers\OldAPIController)->getDepartments();
+	};
+	
 	$r->addRoute('GET',     $baseURI . '/colleges/',           	$handleGetAllColleges);
 	$r->addRoute('GET',     $baseURI . '/colleges',            	$handleGetAllColleges);
 	$r->addRoute('GET',     $baseURI . '/colleges/{code:\d+}',   $handleGetCollegeByCode);
@@ -108,14 +126,33 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 
 	$r->addRoute('GET',     $baseURI . '/userroles',   $handleGetUserRoles);
 	$r->addRoute('GET',     $baseURI . '/userroles/',   $handleGetUserRoles);
-	
+
 	$r->addRoute('GET',     $baseURI . '/instructorDepartments',   $handleGetAllInstructorDepartments);
 	$r->addRoute('GET',     $baseURI . '/instructorDepartments/',   $handleGetAllInstructorDepartments);
 	$r->addRoute('GET',     $baseURI . '/instructorDepartments/instructor/{instructorID:\d+}',   $handleGetInstructorDepartmentsByInstructorID);
 	$r->addRoute('GET',     $baseURI . '/instructorDepartments/department/{departmentCode:\d+}',   $handleGetInstructorDepartmentsByIDepartmentCode);
-	
+
 	$r->addRoute('POST',    $baseURI . '/Evals_UserDepartmentRoles/',           $handlePostEvals_UserDepartmentRoles);
+
+	$r->addRoute('GET',     $baseURI . '/departments',   $handleGetAllDepartments);
+	$r->addRoute('GET',     $baseURI . '/departments/',   $handleGetAllDepartments);
+
+	$r->addRoute('GET',     $baseURI . '/semesters',   $handleGetAllSemesters);
+	$r->addRoute('GET',     $baseURI . '/semesters/',   $handleGetAllSemesters);
 	
+	$r->addRoute('POST',     $baseURI . '/getSemesters',   $handleGetSemesters);
+	$r->addRoute('POST',     $baseURI . '/getSemesters/',   $handleGetSemesters);
+	
+	$r->addRoute('POST',     $baseURI . '/getDepartments',   $handleGetDepartments);
+	$r->addRoute('POST',     $baseURI . '/getDepartments/',   $handleGetDepartments);
+	
+	$r->addRoute('POST',     $baseURI . '/getPingraphData',   $handleGetPingraphData);
+	$r->addRoute('POST',     $baseURI . '/getPingraphData/',   $handleGetPingraphData);
+	
+	
+	
+	
+
 });
 
 $method = $_SERVER['REQUEST_METHOD'];
