@@ -15,6 +15,24 @@ class UserRolesController
  * Join Users, UserRoles, and Roles
  * SELECT FirstName, LastName, Role
  */
+ /*
+ Rewritten query using the Evals_UserDepartmentRoles
+ * SELECT 
+*	udr.userID   as InstructorID,
+*	d.code            as DepartmentCode,
+*	d.collegeCode     as CollegeCode,
+*	d.name            as DepartmentName,
+*	u.FirstName       as InstructorFirstName,
+* 	u.LastName        as InstructorLastName,
+* 	r.name            as RoleName
+* FROM Evals_UserDepartmentRoles udr
+* JOIN Users u
+* ON udr.userID = u.Id
+* JOIN Roles r
+* on udr.roleID = r.id
+* JOIN Departments d
+* on udr.departmentCode = d.code
+ */
 		$queryGetAllUserRoles = '
 			SELECT 
 				id.id             as InstructorDepartmentsID,

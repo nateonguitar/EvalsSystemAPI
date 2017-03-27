@@ -39,116 +39,136 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 
 
 
+	
+	
+	
+	
+	
+	
+	
+	
 	$handleGetAllColleges = function(){
         return (new CS4450\Controllers\CollegesController)->getAllColleges();
     };
-
+	$r->addRoute('GET',     $baseURI . '/colleges/',           	$handleGetAllColleges);
+	$r->addRoute('GET',     $baseURI . '/colleges',            	$handleGetAllColleges);
+	
 	$handleGetCollegeByCode = function($args){
 		return (new CS4450\Controllers\CollegesController)->getCollegeByCode($args);
 	};
-
-	//*********************************************************************************
-
-	$handleGetAllRoles = function(){
-		return (new CS4450\Controllers\RolesController)->getAllRoles();
-	};
-
+	$r->addRoute('GET',     $baseURI . '/colleges/{code:\d+}',   $handleGetCollegeByCode);
+	
+	//**********************************************************************************
+	
 	$handleGetRoleByID = function($args){
 		return (new CS4450\Controllers\RolesController)->getRoleByID($args);
 	};
+	$r->addRoute('GET',     $baseURI . '/roles/{id:\d+}',   $handleGetRoleByID);
+	
+	$handleGetAllRoles = function(){
+		return (new CS4450\Controllers\RolesController)->getAllRoles();
+	};
+	$r->addRoute('GET',     $baseURI . '/roles/',   $handleGetAllRoles);
+	$r->addRoute('GET',     $baseURI . '/roles',   $handleGetAllRoles);
 
-	//*********************************************************************************
-
+	//**********************************************************************************
+	
 	$handleGetAllCategories = function(){
 		return (new CS4450\Controllers\CategoriesController)->getAllCategories();
 	};
-
+	$r->addRoute('GET',     $baseURI . '/categories',   $handleGetAllCategories);
+	$r->addRoute('GET',     $baseURI . '/categories/',   $handleGetAllCategories);
+	
 	$handleGetCategoryByID = function($args){
 		return (new CS4450\Controllers\CategoriesController)->getCategoryByID($args);
 	};
+	$r->addRoute('GET',     $baseURI . '/categories/{id:\d+}',   $handleGetCategoryByID);
 
-	//*********************************************************************************
+	//**********************************************************************************
+	
 	$handleGetUserRoles = function(){
 		return (new CS4450\Controllers\UserRolesController)->getUserRoles();
 	};
-	//*********************************************************************************
+	$r->addRoute('GET',     $baseURI . '/userroles',   $handleGetUserRoles);
+	$r->addRoute('GET',     $baseURI . '/userroles/',   $handleGetUserRoles);
 
+	//**********************************************************************************
+	
 	$handleGetAllInstructorDepartments = function(){
 		return (new CS4450\Controllers\InstructorDepartmentsController)->getAllInstructorDepartments();
 	};
-
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments',   $handleGetAllInstructorDepartments);
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments/',   $handleGetAllInstructorDepartments);
+	
 	$handleGetInstructorDepartmentsByInstructorID = function($args){
 		return (new CS4450\Controllers\InstructorDepartmentsController)->getInstructorDepartmentsByInstructorID($args);
 	};
-
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments/instructor/{instructorID:\d+}',   $handleGetInstructorDepartmentsByInstructorID);
+	
+	//**********************************************************************************
+	
 	$handleGetInstructorDepartmentsByIDepartmentCode = function($args){
 		return (new CS4450\Controllers\InstructorDepartmentsController)->getInstructorDepartmentsByDepartmentCode($args);
 	};
+	$r->addRoute('GET',     $baseURI . '/instructorDepartments/department/{departmentCode:\d+}',   $handleGetInstructorDepartmentsByIDepartmentCode);
 
-	//*********************************************************************************
-
+	//**********************************************************************************
+	
 	$handlePostEvals_UserDepartmentRoles = function(){
         return (new CS4450\Controllers\Evals_UserDepartmentRolesController)->insertIntoEvals_UserDepartmentRoles();
     };
-	//*********************************************************************************
+	$r->addRoute('POST',    $baseURI . '/Evals_UserDepartmentRoles/',           $handlePostEvals_UserDepartmentRoles);
+
+	//**********************************************************************************
+	
 	$handleGetAllDepartments = function($args){
 		return (new CS4450\Controllers\DeptController)->getAllDepts($args);
 	};
+	$r->addRoute('GET',     $baseURI . '/departments',   $handleGetAllDepartments);
+	$r->addRoute('GET',     $baseURI . '/departments/',   $handleGetAllDepartments);
+	
 	//*********************************************************************************
 	$handleGetAllSemesters = function($args){
 		return (new CS4450\Controllers\SemesterController)->getAllDepts($args);
 	};
-	//*********************************************************************************
-
-	$handleGetPingraphData = function(){
-		return (new CS4450\Controllers\OldAPIController)->getPingraphData();
-	};
+	$r->addRoute('GET',     $baseURI . '/semesters',   $handleGetAllSemesters);
+	$r->addRoute('GET',     $baseURI . '/semesters/',   $handleGetAllSemesters);
 	
+	//*********************************************************************************
+	
+	// these are the functions needed to get the old pingraphgui.html page
+	// working from the previous group
 	$handleGetSemesters = function(){
 		return (new CS4450\Controllers\OldAPIController)->getSemesters();
 	};
+	$r->addRoute('POST',     $baseURI . '/getSemesters',   $handleGetSemesters);
+	$r->addRoute('POST',     $baseURI . '/getSemesters/',   $handleGetSemesters);
 	
 	$handleGetDepartments = function(){
 		return (new CS4450\Controllers\OldAPIController)->getDepartments();
 	};
-	
-	$r->addRoute('GET',     $baseURI . '/colleges/',           	$handleGetAllColleges);
-	$r->addRoute('GET',     $baseURI . '/colleges',            	$handleGetAllColleges);
-	$r->addRoute('GET',     $baseURI . '/colleges/{code:\d+}',   $handleGetCollegeByCode);
-
-	$r->addRoute('GET',     $baseURI . '/roles/{id:\d+}',   $handleGetRoleByID);
-	$r->addRoute('GET',     $baseURI . '/roles/',   $handleGetAllRoles);
-	$r->addRoute('GET',     $baseURI . '/roles',   $handleGetAllRoles);
-
-	$r->addRoute('GET',     $baseURI . '/categories',   $handleGetAllCategories);
-	$r->addRoute('GET',     $baseURI . '/categories/',   $handleGetAllCategories);
-	$r->addRoute('GET',     $baseURI . '/categories/{id:\d+}',   $handleGetCategoryByID);
-
-	$r->addRoute('GET',     $baseURI . '/userroles',   $handleGetUserRoles);
-	$r->addRoute('GET',     $baseURI . '/userroles/',   $handleGetUserRoles);
-
-	$r->addRoute('GET',     $baseURI . '/instructorDepartments',   $handleGetAllInstructorDepartments);
-	$r->addRoute('GET',     $baseURI . '/instructorDepartments/',   $handleGetAllInstructorDepartments);
-	$r->addRoute('GET',     $baseURI . '/instructorDepartments/instructor/{instructorID:\d+}',   $handleGetInstructorDepartmentsByInstructorID);
-	$r->addRoute('GET',     $baseURI . '/instructorDepartments/department/{departmentCode:\d+}',   $handleGetInstructorDepartmentsByIDepartmentCode);
-
-	$r->addRoute('POST',    $baseURI . '/Evals_UserDepartmentRoles/',           $handlePostEvals_UserDepartmentRoles);
-
-	$r->addRoute('GET',     $baseURI . '/departments',   $handleGetAllDepartments);
-	$r->addRoute('GET',     $baseURI . '/departments/',   $handleGetAllDepartments);
-
-	$r->addRoute('GET',     $baseURI . '/semesters',   $handleGetAllSemesters);
-	$r->addRoute('GET',     $baseURI . '/semesters/',   $handleGetAllSemesters);
-	
-	$r->addRoute('POST',     $baseURI . '/getSemesters',   $handleGetSemesters);
-	$r->addRoute('POST',     $baseURI . '/getSemesters/',   $handleGetSemesters);
-	
 	$r->addRoute('POST',     $baseURI . '/getDepartments',   $handleGetDepartments);
 	$r->addRoute('POST',     $baseURI . '/getDepartments/',   $handleGetDepartments);
 	
+	$handleGetCourses = function(){
+		return (new CS4450\Controllers\OldAPIController)->getCourses();
+	};
+	$r->addRoute('POST',     $baseURI . '/getCourses',   $handleGetCourses);
+	$r->addRoute('POST',     $baseURI . '/getCourses/',   $handleGetCourses);
+	
+	$handleGetPingraphData = function(){
+		return (new CS4450\Controllers\OldAPIController)->getPingraphData();
+	};
 	$r->addRoute('POST',     $baseURI . '/getPingraphData',   $handleGetPingraphData);
 	$r->addRoute('POST',     $baseURI . '/getPingraphData/',   $handleGetPingraphData);
 	
+	//*********************************************************************************
+	
+	$handleGetYearSemesters = function(){
+		return (new CS4450\Controllers\YearSemestersController)->getAllYearsAndSemesters();
+	};
+	$r->addRoute('GET',     $baseURI . '/yearSemesters',   $handleGetYearSemesters);
+	$r->addRoute('GET',     $baseURI . '/yearSemesters/',   $handleGetYearSemesters);
 	
 	
 	
