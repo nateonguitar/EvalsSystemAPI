@@ -170,8 +170,32 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 	$r->addRoute('GET',     $baseURI . '/yearSemesters',   $handleGetYearSemesters);
 	$r->addRoute('GET',     $baseURI . '/yearSemesters/',   $handleGetYearSemesters);
 	
+	//*********************************************************************************
 	
+	$handleGetAllCoursesBasedOnDepartmentList = function(){
+		return (new CS4450\Controllers\CoursesController)->getAllCoursesBasedOnDepartmentList();
+	};
+	$r->addRoute('POST',     $baseURI . '/courses',   $handleGetAllCoursesBasedOnDepartmentList);
+	$r->addRoute('POST',     $baseURI . '/courses/',   $handleGetAllCoursesBasedOnDepartmentList);
 	
+	//*********************************************************************************
+	
+	$handleGetPingraphData = function(){
+		return (new CS4450\Controllers\PingraphDataController)->getPingraphData();
+	};
+	$r->addRoute('POST',     $baseURI . '/pingraphData',   $handleGetPingraphData);
+	$r->addRoute('POST',     $baseURI . '/pingraphData/',   $handleGetPingraphData);
+	
+	//*********************************************************************************
+	
+	$handleBoxAndWhiskerData = function(){
+		return (new CS4450\Controllers\PingraphDataController)->getPingraphData();
+	};
+	$r->addRoute('POST',     $baseURI . '/boxAndWhiskerData',   $handleBoxAndWhiskerData);
+	$r->addRoute('POST',     $baseURI . '/boxAndWhiskerData/',   $handleBoxAndWhiskerData);
+	
+	//*********************************************************************************
+	// TODO: write getAllInstructors based on passed in departments
 
 });
 
