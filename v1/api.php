@@ -172,11 +172,11 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 	
 	//*********************************************************************************
 	
-	$handleGetAllCoursesBasedOnDepartmentList = function(){
-		return (new CS4450\Controllers\CoursesController)->getAllCoursesBasedOnDepartmentList();
+	$handleGetAllCourseNumbersBasedOnDepartmentList = function(){
+		return (new CS4450\Controllers\CourseNumbersController)->getAllCoursesBasedOnDepartmentList();
 	};
-	$r->addRoute('POST',     $baseURI . '/courses',   $handleGetAllCoursesBasedOnDepartmentList);
-	$r->addRoute('POST',     $baseURI . '/courses/',   $handleGetAllCoursesBasedOnDepartmentList);
+	$r->addRoute('POST',     $baseURI . '/courseNumbers',   $handleGetAllCourseNumbersBasedOnDepartmentList);
+	$r->addRoute('POST',     $baseURI . '/courseNumbers/',   $handleGetAllCourseNumbersBasedOnDepartmentList);
 	
 	//*********************************************************************************
 	
@@ -195,7 +195,11 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) u
 	$r->addRoute('POST',     $baseURI . '/boxAndWhiskerData/',   $handleBoxAndWhiskerData);
 	
 	//*********************************************************************************
-	// TODO: write getAllInstructors based on passed in departments
+	$handleGettingAllInstructorsBasedOnDepartments = function(){
+		return (new CS4450\Controllers\InstructorsController)->getAllInstructorsBasedOnDepartments();
+	};
+	$r->addRoute('POST',     $baseURI . '/instructors',   $handleGettingAllInstructorsBasedOnDepartments);
+	$r->addRoute('POST',     $baseURI . '/instructors/',   $handleGettingAllInstructorsBasedOnDepartments);
 
 });
 
